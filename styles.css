@@ -1,0 +1,35 @@
+.item-picture {
+  height: 300px;
+}
+
+.cart {
+  border: 2px solid black;
+  background-color: grey;
+  border-radius: 5px;
+  width: 100px;
+  margin: 0 auto;
+}
+
+.cart {
+  margin-top: 20px;
+}
+
+.title {
+  margin-bottom: 50px;
+}
+
+.columns {
+  margin-bottom: 50px;
+}
+
+body {
+  background-color: darkgray;
+  font-weight: 300;
+}
+
+.btn-facebook {
+  width: 50%;
+  color: #fff;
+  background-color: #3b5998;
+  border-color: rgba(0,0,0,0.2);
+}
