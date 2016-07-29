@@ -21,7 +21,7 @@ app.use(express.static(__dirname + '/../'));
 db.sync().then(() => {
 
   // Creates the item database if it does not already exist
-  require('./db/seed');
+  //require('./db/seed');
 
   const port = 3000;
   app.listen(port, () => console.log(`listening on ${port}`));

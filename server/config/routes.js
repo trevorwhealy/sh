@@ -1,5 +1,6 @@
 const passport = require('passport');
 const path = require('path');
+const Item = require('../db/models/Item');
 
 var auth = (req, res, next) => {
   if (req.isAuthenticated()) {
@@ -27,8 +28,10 @@ module.exports = (app) => {
     res.redirect('/');
   });
 
-  app.get('/db', (req, res) => {
-
+  app.get('/db', auth, (req, res) => {
+    Item.findAll().then(items => {
+      res.json({'items': items});
+    });
   });
 
   app.get('/users/me', auth, (req, res) => {

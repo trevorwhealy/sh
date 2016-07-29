@@ -1,5 +1,5 @@
 module.exports = {
-  entry: './components/App.js',
+  entry: './components/App.jsx',
   output: {
     path: __dirname,
     filename: 'bundle.js'
@@ -8,7 +8,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.jsx$/,
         exclude: /(node_modules|bower_components)/,
         loader: 'babel',
         query: {
