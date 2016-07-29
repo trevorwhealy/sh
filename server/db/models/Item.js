@@ -7,20 +7,4 @@ var Item = db.define('item', {
   cost: Sequelize.INTEGER
 });
 
-
 module.exports = Item;
-
-
-// var mongoose = require('mongoose');
-//
-// var itemSchema = mongoose.Schema({
-//   id: {
-//     type: String
-//   },
-//   type: {
-//     type: String
-//   },
-//   cost: {
-//     type: Number
-//   }
-// });
