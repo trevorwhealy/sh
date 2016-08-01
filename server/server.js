@@ -17,6 +17,9 @@ require('./config/passport')();
 // Sets server as the static file provider...
 app.use(express.static(__dirname + '/../'));
 
+//Establishes database model associations
+require('./db/associations');
+
 // Solves the problem of db.sync being asynch which might not finish before app.listen() begins
 db.sync().then(() => {
 

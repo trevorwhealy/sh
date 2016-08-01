@@ -43,6 +43,7 @@ class Gallery extends React.Component {
         <div className="row">
           {this.state.items.map( item =>
             <Item
+              showCheckoutButton={this.props.showCheckoutButton}
               key={item.id}
               id={item.id}
               cost={item.cost}
@@ -50,7 +51,7 @@ class Gallery extends React.Component {
               image={item.image}
               addToCart={this.props.addToCart}
             />
-          )}}
+          )}
         </div>
       </div>
     );

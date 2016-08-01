@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 
 import { Router, Route, Link, browserHistory } from 'react-router';
 
-
 import Title from './Title.jsx';
 import Gallery from './Gallery.jsx';
 import Cart from './Cart.jsx';
@@ -21,39 +20,27 @@ class App extends React.Component {
     };
   }
 
-  // addToCart(item) {
-  //
-  //   var newValue = this.state.value + item.price;
-  //
-  //   var oldArray = this.state.items;
-  //   var newArray = oldArray.concat(item.name);
-  //
-  //   this.setState({
-  //     value: newValue,
-  //     items: newArray
-  //   });
-  //
-  //   // items: ['blue', 'red']
-  //   // items: [['blue', 1], ['red', 2]]
-  //
-  //   var cart = {
-  //     value: newValue,
-  //     items: newArray
-  //   };
-  //
-  //   localStorage.setItem('cart', JSON.stringify(cart));
-  //
-  //   console.log(`this.state.value: ${this.state.value}`);
-  //   console.log(`this.state.items: ${this.state.items}`);
-  // }
-
   displayCart() {
+    //return this.state;
     return Object.assign({}, this.state);
   }
 
   add() {
+
+    var cart = JSON.parse(localStorage.getItem('cart'));
+
+    var calculateTotalCost = (cartArray) => {
+      var total = 0;
+      for (var cartItem of cartArray) {
+        console.log(cartItem);
+        total += cartItem.cost * cartItem.quantity;
+      }
+      return total;
+    };
+
     this.setState({
-      contains: true
+      contains: true,
+      value: calculateTotalCost(cart)
     })
   }
 
@@ -61,9 +48,9 @@ class App extends React.Component {
 
     var cart = localStorage.getItem('cart');
     if (cart) {
-      console.log('cart found');
-    } else {
-      console.log('no cart found');
+      this.setState({
+        contains: true
+      });
     }
 
     fetch('users/me', {
@@ -74,8 +61,7 @@ class App extends React.Component {
       return response.json();
     })
     .then(data => {
-
-      // Removes fbid, createdAt, and updatedAt
+      // Foregoes fbid, createdAt, and updatedAt
       var currentUser = {
         id: data.id,
         name: data.name
@@ -89,16 +75,17 @@ class App extends React.Component {
     return (
       <div className="container-fluid text-center">
         <Title />
-        <button onClick={this.add.bind(this)}>yes</button>
         {this.state.contains ?
-          <Link to={{pathname: 'checkout'}}>//, query: {cart: localStorage.getItem('cart')}}}>
+          <Link to={{pathname: 'checkout'}}>
             <button className="btn btn-success">
-              checkout
+              <i className="fa fa-shopping-cart fa-3x" aria-hidden="true"></i>
             </button>
           </Link>
-          : <button className="btn disabled"> checkout </button>
+          : <button className="btn disabled">
+              <i className="fa fa-shopping-cart fa-3x" aria-hidden="true"></i>
+            </button>
         }
-        <Gallery addToCart={this.addToCart.bind(this)}/>
+        <Gallery showCheckoutButton={this.add.bind(this)}/>
         <Cart cart={this.displayCart.bind(this)}/>
       </div>
 
@@ -112,3 +99,11 @@ ReactDOM.render(
     <Route path='checkout' component={Checkout}></Route>
   </Router>
   , document.getElementById('app'));
+
+
+  /* Notes to self:
+
+  React Router Links can take GET Parameters:
+    <Link to={{pathname: 'checkout'}}>, query: {cart: localStorage.getItem('cart')}}}>
+
+  */
